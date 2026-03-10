@@ -1,0 +1,406 @@
+You are a senior full-stack engineer and UX designer. 
+Your task is to build a FULLY FUNCTIONAL progressive web application (PWA) for an ICT exhibition project.
+
+The app must be complete, polished, and production-ready with clean code, modular architecture, and modern UI.
+
+The project theme is:
+
+"Serving the God of All Flesh through Technology"
+
+The application must demonstrate how technology can help solve human health problems such as illness detection, lack of healthcare access, and poor preventive health habits.
+
+----------------------------------------------------
+
+PROJECT NAME
+
+Clinic-in-a-Phone
+
+A smart health assistant web app that helps users:
+
+• check symptoms
+• stay physically fit
+• receive daily health advice
+• locate nearby clinics
+• understand the mission of serving humanity through healthcare
+
+----------------------------------------------------
+
+TECH STACK
+
+Frontend:
+HTML5
+CSS3
+JavaScript
+Tailwind CSS (for modern UI)
+
+Backend:
+Python Flask
+
+Data:
+JSON files
+
+Maps:
+Leaflet.js with offline fallback
+
+PWA:
+Service Workers
+Offline caching
+
+Charts:
+Chart.js
+
+----------------------------------------------------
+
+GENERAL REQUIREMENTS
+
+The web app must be:
+
+• responsive
+• modern UI
+• mobile friendly
+• offline capable
+• easy to use
+• visually impressive
+
+Use soft medical colors:
+
+white
+light blue
+green
+
+Add smooth animations and hover effects.
+
+----------------------------------------------------
+
+APP STRUCTURE
+
+Navbar should contain:
+
+Home
+Symptom Checker
+Fitness
+Clinics Map
+Mission
+
+----------------------------------------------------
+
+PAGE 1 — HOME
+
+The home page should contain:
+
+1) DAILY DOCTOR QUOTE
+
+At the top show a rotating daily doctor quote.
+
+Examples:
+
+"Health is the greatest wealth."
+
+"Prevention is better than cure."
+
+"Take care of your body; it is the only place you have to live."
+
+"Small daily exercise prevents big hospital bills."
+
+Quotes should change randomly every day.
+
+----------------------------------------------------
+
+2) EXERCISE OF THE DAY
+
+Display 4 exercises randomly selected each day.
+
+Example exercises:
+
+Push Ups
+Squats
+Jumping Jacks
+Plank
+Lunges
+Sit Ups
+High Knees
+Burpees
+
+Each exercise card must include:
+
+• exercise name
+• short benefit
+• button: "How to do it"
+
+When clicked it opens a modal showing:
+
+step-by-step instructions
+benefits
+recommended repetitions
+
+----------------------------------------------------
+
+3) HEALTH SCORE
+
+Users answer 5 questions:
+
+Did you exercise today?
+Did you drink enough water?
+Did you sleep 7-8 hours?
+Did you eat fruits/vegetables?
+Did you avoid excessive sugar?
+
+Calculate a health score out of 100.
+
+Display:
+
+Your Health Score: 82 / 100
+
+Give advice depending on score.
+
+----------------------------------------------------
+
+PAGE 2 — SYMPTOM CHECKER
+
+This page should have a modern chat-like medical assistant UI.
+
+Users select symptoms from a list.
+
+Symptoms list should include:
+
+fever
+headache
+cough
+chest pain
+vomiting
+diarrhea
+fatigue
+sore throat
+dizziness
+body pain
+
+When user clicks "Analyse Symptoms"
+
+The backend Python code should analyze symptoms using rule-based logic.
+
+Example rules:
+
+fever + headache → possible malaria
+cough + fever → possible flu
+vomiting + diarrhea → possible food poisoning
+chest pain → urgent medical attention
+
+The output should show:
+
+Possible Condition
+Recommended Action
+Severity level (low / medium / high)
+
+Important disclaimer:
+
+"This tool is not a medical diagnosis. Please consult a healthcare professional."
+
+----------------------------------------------------
+
+PAGE 3 — FITNESS PAGE
+
+This page should include:
+
+1) daily exercise routine generator
+
+Random routine example:
+
+20 Push Ups
+30 Squats
+1 minute plank
+15 sit ups
+
+2) exercise tutorials
+
+Each exercise should show:
+
+• description
+• instructions
+• benefits
+• recommended sets
+
+----------------------------------------------------
+
+PAGE 4 — CLINIC MAP
+
+Use Leaflet.js to display a map.
+
+Show markers for nearby clinics.
+
+Example clinics:
+
+Faith Medical Clinic
+City Health Center
+Community Hospital
+St Mary Clinic
+
+Clicking a marker shows:
+
+clinic name
+address
+contact number
+
+If internet is unavailable:
+
+display cached clinic list.
+
+----------------------------------------------------
+
+PAGE 5 — MISSION PAGE
+
+This page must clearly connect the project to the theme:
+
+"God of All Flesh"
+
+Mission text:
+
+Explain that the project was built to care for people’s health using technology.
+
+Include the Bible verse:
+
+Numbers 16:22
+
+"O God, the God of the spirits of all flesh."
+
+Explain that caring for human health is a way of serving God and protecting His creation.
+
+----------------------------------------------------
+
+EXTRA FEATURE — BMI CALCULATOR
+
+Users enter:
+
+height
+weight
+
+The app calculates BMI.
+
+Use Python backend.
+
+Return:
+
+BMI value
+weight category
+
+Categories:
+
+Underweight
+Normal
+Overweight
+Obese
+
+Also give health advice.
+
+----------------------------------------------------
+
+PYTHON BACKEND REQUIREMENTS
+
+Create Flask API routes:
+
+/api/symptom-check
+/api/exercise
+/api/bmi
+/api/health-score
+
+Implement rule-based symptom checker.
+
+----------------------------------------------------
+
+OFFLINE CAPABILITY
+
+Implement a service worker that caches:
+
+HTML
+CSS
+JS
+clinic data
+exercise data
+
+App should still load without internet.
+
+----------------------------------------------------
+
+UI DESIGN
+
+The UI must look like a professional health startup.
+
+Use:
+
+rounded cards
+icons
+soft shadows
+clean typography
+animated buttons
+
+----------------------------------------------------
+
+BONUS FEATURES
+
+Add:
+
+Emergency Help Button
+
+If clicked:
+
+Show emergency advice
+Show nearest clinics
+
+----------------------------------------------------
+
+FILE STRUCTURE
+
+project-root
+
+app.py
+templates
+    index.html
+    symptom.html
+    fitness.html
+    clinics.html
+    mission.html
+static
+    css
+    js
+    images
+data
+    exercises.json
+    clinics.json
+    quotes.json
+service-worker.js
+
+----------------------------------------------------
+
+CODE QUALITY
+
+Code must be:
+
+well commented
+clean architecture
+modular
+easy to read
+
+----------------------------------------------------
+
+DELIVERABLE
+
+Provide the complete working project including:
+
+frontend code
+backend code
+JSON data
+PWA setup
+Flask server
+instructions to run locally
+
+----------------------------------------------------
+
+GOAL
+
+The final result should look like a real health startup product that impresses judges in an ICT exhibition.
+
+Focus on:
+
+innovation
+usability
+visual beauty
+real world usefulness

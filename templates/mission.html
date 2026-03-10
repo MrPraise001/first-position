@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Mission - Clinic-in-a-Phone</title>
+    <meta name="description" content="Serving the God of All Flesh through Technology - Our mission to provide healthcare access">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Clinic-in-a-Phone">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heartbeat text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">Clinic-in-a-Phone</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="/symptom" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-stethoscope mr-1"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-dumbbell mr-1"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-map-marker-alt mr-1"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="nav-link text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                        <i class="fas fa-hands-helping mr-1"></i> Mission
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                    <a href="/symptom" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-stethoscope mr-2"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-dumbbell mr-2"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="mobile-nav-link text-blue-600 font-semibold py-2">
+                        <i class="fas fa-hands-helping mr-2"></i> Mission
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="text-center mb-16">
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-12 text-white shadow-2xl">
+                <i class="fas fa-pray text-6xl mb-6"></i>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    Serving the God of All Flesh
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    Through Technology and Healthcare Innovation
+                </p>
+                <div class="max-w-3xl mx-auto">
+                    <p class="text-lg leading-relaxed">
+                        We believe that caring for human health is a sacred duty and a way of honoring God's creation. 
+                        Our mission is to use technology to make healthcare accessible to all, reflecting our commitment 
+                        to serve humanity with compassion and excellence.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Biblical Foundation -->
+        <section class="mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="text-center mb-8">
+                    <i class="fas fa-bible text-5xl text-purple-600 mb-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Biblical Foundation</h2>
+                </div>
+                
+                <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-8 text-center">
+                    <div class="max-w-2xl mx-auto">
+                        <i class="fas fa-quote-left text-purple-600 text-3xl mb-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Numbers 16:22</h3>
+                        <p class="text-xl text-gray-700 italic mb-6 leading-relaxed">
+                            "O God, the God of the spirits of all flesh"
+                        </p>
+                        <i class="fas fa-quote-right text-purple-600 text-3xl"></i>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    <div class="bg-purple-50 rounded-lg p-6">
+                        <h3 class="text-xl font-bold text-purple-800 mb-4">
+                            <i class="fas fa-heart mr-2"></i>
+                            Divine Mandate
+                        </h3>
+                        <p class="text-gray-700">
+                            As stewards of God's creation, we are called to care for one another's health and wellbeing. 
+                            This application represents our commitment to fulfilling this divine mandate through modern technology.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-blue-50 rounded-lg p-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-4">
+                            <i class="fas fa-hands-helping mr-2"></i>
+                            Service to Humanity
+                        </h3>
+                        <p class="text-gray-700">
+                            By providing accessible healthcare tools, we serve not just individuals but communities, 
+                            reflecting God's love for all people and demonstrating our faith through action.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Mission -->
+        <section class="mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                    <i class="fas fa-bullseye text-blue-600 mr-3"></i>
+                    Our Mission
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-universal-access text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Accessibility</h3>
+                        <p class="text-gray-600">
+                            Making healthcare information and services accessible to everyone, regardless of location or economic status.
+                        </p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-microscope text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Innovation</h3>
+                        <p class="text-gray-600">
+                            Leveraging cutting-edge technology to solve real-world health problems and improve quality of life.
+                        </p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-dove text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Compassion</h3>
+                        <p class="text-gray-600">
+                            Serving with love and empathy, treating each person as a precious creation of God.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="mb-16">
+            <div class="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-8 text-white">
+                <h2 class="text-3xl font-bold mb-8 text-center">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    Our Impact
+                </h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <div class="text-4xl font-bold mb-2" id="usersCount">0</div>
+                        <p class="text-sm opacity-90">Users Helped</p>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold mb-2" id="clinicsCount">0</div>
+                        <p class="text-sm opacity-90">Clinics Listed</p>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold mb-2" id="checksCount">0</div>
+                        <p class="text-sm opacity-90">Symptom Checks</p>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold mb-2" id="livesCount">0</div>
+                        <p class="text-sm opacity-90">Lives Impacted</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                    <i class="fas fa-gem text-purple-600 mr-3"></i>
+                    Our Core Values
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border-l-4 border-purple-600 pl-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">
+                            <i class="fas fa-praying-hands text-purple-600 mr-2"></i>
+                            Faith-Based Service
+                        </h3>
+                        <p class="text-gray-600">
+                            Our work is rooted in faith, guided by biblical principles of love, service, and stewardship.
+                        </p>
+                    </div>
+                    
+                    <div class="border-l-4 border-blue-600 pl-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">
+                            <i class="fas fa-shield-alt text-blue-600 mr-2"></i>
+                            Excellence
+                        </h3>
+                        <p class="text-gray-600">
+                            We strive for excellence in all we do, offering the best possible healthcare solutions.
+                        </p>
+                    </div>
+                    
+                    <div class="border-l-4 border-green-600 pl-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">
+                            <i class="fas fa-users text-green-600 mr-2"></i>
+                            Community Focus
+                        </h3>
+                        <p class="text-gray-600">
+                            We build and serve communities, creating networks of care and support.
+                        </p>
+                    </div>
+                    
+                    <div class="border-l-4 border-red-600 pl-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">
+                            <i class="fas fa-heart text-red-600 mr-2"></i>
+                            Compassion
+                        </h3>
+                        <p class="text-gray-600">
+                            We approach every interaction with empathy, kindness, and genuine care for others.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="mb-16">
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-center text-white">
+                <h2 class="text-3xl font-bold mb-6">
+                    <i class="fas fa-hands-helping mr-2"></i>
+                    Join Our Mission
+                </h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">
+                    Together, we can make quality healthcare accessible to all and honor the God who created us.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="shareMission()" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-share-alt mr-2"></i>
+                        Share Our Mission
+                    </button>
+                    <button onclick="learnMore()" class="bg-purple-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-900 transition-colors">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prayer Section -->
+        <section class="mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="text-center">
+                    <i class="fas fa-pray text-5xl text-purple-600 mb-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Prayer for Our Mission</h2>
+                </div>
+                
+                <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-8">
+                    <p class="text-lg text-gray-700 italic leading-relaxed text-center">
+                        "Dear God, the God of the spirits of all flesh, we thank you for the gift of technology 
+                        and the opportunity to serve others through it. Bless this mission and all who use this application 
+                        to find health and healing. Guide us in our work to be instruments of your love and compassion. 
+                        May every life touched through this service feel your presence and care. In Jesus' name, Amen."
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <i class="fas fa-heartbeat text-blue-400 text-2xl mr-2"></i>
+                <span class="text-xl font-semibold">Clinic-in-a-Phone</span>
+            </div>
+            <p class="text-gray-400 mb-2">Serving the God of All Flesh through Technology</p>
+            <p class="text-gray-500 text-sm">© 2024 Clinic-in-a-Phone. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/mission.js') }}"></script>
+</body>
+</html>

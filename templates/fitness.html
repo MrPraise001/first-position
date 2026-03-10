@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness - Clinic-in-a-Phone</title>
+    <meta name="description" content="Exercise routines and fitness tutorials for healthy living">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Clinic-in-a-Phone">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heartbeat text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">Clinic-in-a-Phone</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="/symptom" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-stethoscope mr-1"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="nav-link text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                        <i class="fas fa-dumbbell mr-1"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-map-marker-alt mr-1"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-hands-helping mr-1"></i> Mission
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                    <a href="/symptom" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-stethoscope mr-2"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="mobile-nav-link text-blue-600 font-semibold py-2">
+                        <i class="fas fa-dumbbell mr-2"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-hands-helping mr-2"></i> Mission
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <section class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-dumbbell text-green-600 mr-3"></i>
+                Fitness & Exercise
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Stay healthy with personalized exercise routines and tutorials
+            </p>
+        </section>
+
+        <!-- Daily Exercise Routine Generator -->
+        <section class="mb-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-random text-purple-600 mr-2"></i>
+                        Daily Exercise Routine Generator
+                    </h2>
+                    <p class="text-gray-600 mb-6">Get a personalized workout routine for today</p>
+                    <button id="generateRoutine" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all shadow-lg">
+                        <i class="fas fa-sync-alt mr-2"></i>
+                        Generate New Routine
+                    </button>
+                </div>
+                
+                <div id="routineContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Exercise routine will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise Tutorials -->
+        <section class="mb-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                    <i class="fas fa-graduation-cap text-blue-600 mr-2"></i>
+                    Exercise Tutorials
+                </h2>
+                
+                <div id="tutorialsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Exercise tutorials will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Tracker -->
+        <section class="mb-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                    <i class="fas fa-chart-line text-green-600 mr-2"></i>
+                    Your Progress
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Weekly Exercise Stats</h3>
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Fitness Goals</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-medium text-gray-700">Daily Exercise</span>
+                                    <span class="text-sm text-gray-500">5/7 days</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-green-600 h-3 rounded-full" style="width: 71%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-medium text-gray-700">Weekly Steps</span>
+                                    <span class="text-sm text-gray-500">45,000/50,000</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-blue-600 h-3 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-medium text-gray-700">Calories Burned</span>
+                                    <span class="text-sm text-gray-500">1,800/2,000</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-purple-600 h-3 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fitness Tips -->
+        <section class="mb-12">
+            <div class="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl shadow-xl p-8 text-white">
+                <h2 class="text-3xl font-bold mb-6 text-center">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    Fitness Tips
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white bg-opacity-20 rounded-lg p-6">
+                        <i class="fas fa-tint text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Stay Hydrated</h3>
+                        <p class="text-sm">Drink at least 8 glasses of water daily, especially before and after workouts.</p>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-20 rounded-lg p-6">
+                        <i class="fas fa-bed text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Rest & Recover</h3>
+                        <p class="text-sm">Get 7-8 hours of sleep to allow your muscles to recover and grow stronger.</p>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-20 rounded-lg p-6">
+                        <i class="fas fa-apple-alt text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Eat Right</h3>
+                        <p class="text-sm">Fuel your body with nutritious foods and maintain a balanced diet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Exercise Modal -->
+    <div id="exerciseModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modalExerciseName" class="text-2xl font-bold text-gray-800"></h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                <div id="modalExerciseContent" class="space-y-4">
+                    <!-- Modal content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <i class="fas fa-heartbeat text-blue-400 text-2xl mr-2"></i>
+                <span class="text-xl font-semibold">Clinic-in-a-Phone</span>
+            </div>
+            <p class="text-gray-400 mb-2">Serving the God of All Flesh through Technology</p>
+            <p class="text-gray-500 text-sm">© 2024 Clinic-in-a-Phone. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/fitness.js') }}"></script>
+</body>
+</html>

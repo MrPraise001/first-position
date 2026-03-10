@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Push Ups",
+        "benefit": "Builds upper body strength and core stability",
+        "instructions": [
+            "Start in a plank position with hands slightly wider than shoulders",
+            "Lower your body until chest nearly touches the floor",
+            "Push back up to starting position",
+            "Keep your body in a straight line throughout"
+        ],
+        "repetitions": "10-15 reps",
+        "sets": "3 sets"
+    },
+    {
+        "name": "Squats",
+        "benefit": "Strengthens legs and glutes, improves balance",
+        "instructions": [
+            "Stand with feet shoulder-width apart",
+            "Lower your body as if sitting in a chair",
+            "Keep your back straight and chest up",
+            "Return to starting position"
+        ],
+        "repetitions": "15-20 reps",
+        "sets": "3 sets"
+    },
+    {
+        "name": "Jumping Jacks",
+        "benefit": "Great cardio exercise, improves coordination",
+        "instructions": [
+            "Start standing with feet together, arms at sides",
+            "Jump while spreading legs shoulder-width apart",
+            "Simultaneously raise arms overhead",
+            "Jump back to starting position"
+        ],
+        "repetitions": "20-30 reps",
+        "sets": "3 sets"
+    },
+    {
+        "name": "Plank",
+        "benefit": "Strengthens core muscles and improves posture",
+        "instructions": [
+            "Start in push-up position",
+            "Hold your body in a straight line from head to heels",
+            "Engage your core muscles",
+            "Keep breathing steadily"
+        ],
+        "repetitions": "30-60 seconds",
+        "sets": "3 sets"
+    },
+    {
+        "name": "Lunges",
+        "benefit": "Strengthens legs and improves flexibility",
+        "instructions": [
+            "Step forward with one leg",
+            "Lower your hips until both knees are bent at 90 degrees",
+            "Push back to starting position",
+            "Alternate legs"
+        ],
+        "repetitions": "10-12 reps per leg",
+        "sets": "3 sets"
+    },
+    {
+        "name": "Sit Ups",
+        "benefit": "Strengthens abdominal muscles",
+        "instructions": [
+            "Lie on your back with knees bent",
+            "Cross arms over chest or place behind head",
+            "Lift your upper body towards knees",
+            "Lower back down slowly"
+        ],
+        "repetitions": "15-20 reps",
+        "sets": "3 sets"
+    },
+    {
+        "name": "High Knees",
+        "benefit": "Excellent cardio, improves leg strength",
+        "instructions": [
+            "Stand in place with feet hip-width apart",
+            "Run in place bringing knees up to hip level",
+            "Pump your arms for momentum",
+            "Maintain quick, steady pace"
+        ],
+        "repetitions": "30-45 seconds",
+        "sets": "3 sets"
+    },
+    {
+        "name": "Burpees",
+        "benefit": "Full-body workout, builds strength and endurance",
+        "instructions": [
+            "Start in standing position",
+            "Drop to squat position and place hands on floor",
+            "Jump feet back to plank position",
+            "Jump feet back to squat, then jump up with arms overhead"
+        ],
+        "repetitions": "8-12 reps",
+        "sets": "3 sets"
+    }
+]

@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Faith Medical Clinic",
+        "address": "123 Health Street, Medical District",
+        "phone": "+234-800-123-4567",
+        "coordinates": [6.5244, 3.3792],
+        "services": ["General Medicine", "Emergency Care", "Laboratory"]
+    },
+    {
+        "name": "City Health Center",
+        "address": "456 Wellness Avenue, City Center",
+        "phone": "+234-800-234-5678",
+        "coordinates": [6.5344, 3.3892],
+        "services": ["Primary Care", "Vaccination", "Health Screening"]
+    },
+    {
+        "name": "Community Hospital",
+        "address": "789 Care Boulevard, Residential Area",
+        "phone": "+234-800-345-6789",
+        "coordinates": [6.5144, 3.3692],
+        "services": ["24/7 Emergency", "Surgery", "Maternity", "Pediatrics"]
+    },
+    {
+        "name": "St Mary Clinic",
+        "address": "321 Healing Road, Suburban Area",
+        "phone": "+234-800-456-7890",
+        "coordinates": [6.5444, 3.3992],
+        "services": ["Family Medicine", "Dental Care", "Eye Care"]
+    },
+    {
+        "name": "Mercy Health Post",
+        "address": "555 Recovery Lane, Industrial Area",
+        "phone": "+234-800-567-8901",
+        "coordinates": [6.5044, 3.3592],
+        "services": ["First Aid", "Basic Care", "Referrals"]
+    },
+    {
+        "name": "Hope Medical Center",
+        "address": "888 Vitality Street, Business District",
+        "phone": "+234-800-678-9012",
+        "coordinates": [6.5544, 3.4092],
+        "services": ["Specialist Consultation", "Diagnostic Services", "Pharmacy"]
+    }
+]

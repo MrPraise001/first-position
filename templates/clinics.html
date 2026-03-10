@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinics Map - Clinic-in-a-Phone</title>
+    <meta name="description" content="Find nearby healthcare clinics and medical facilities">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Clinic-in-a-Phone">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heartbeat text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">Clinic-in-a-Phone</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="/symptom" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-stethoscope mr-1"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-dumbbell mr-1"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="nav-link text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                        <i class="fas fa-map-marker-alt mr-1"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-hands-helping mr-1"></i> Mission
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                    <a href="/symptom" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-stethoscope mr-2"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-dumbbell mr-2"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="mobile-nav-link text-blue-600 font-semibold py-2">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-hands-helping mr-2"></i> Mission
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <section class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-map-marker-alt text-red-600 mr-3"></i>
+                Find Nearby Clinics
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Locate healthcare facilities in your area
+            </p>
+        </section>
+
+        <!-- Search and Filter Section -->
+        <section class="mb-8">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Search clinics..." 
+                               class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    
+                    <select id="serviceFilter" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">All Services</option>
+                        <option value="General Medicine">General Medicine</option>
+                        <option value="Emergency Care">Emergency Care</option>
+                        <option value="Laboratory">Laboratory</option>
+                        <option value="Primary Care">Primary Care</option>
+                        <option value="Vaccination">Vaccination</option>
+                        <option value="Health Screening">Health Screening</option>
+                        <option value="Surgery">Surgery</option>
+                        <option value="Maternity">Maternity</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Dental Care">Dental Care</option>
+                        <option value="Eye Care">Eye Care</option>
+                    </select>
+                    
+                    <button id="getCurrentLocation" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-location-arrow mr-2"></i>
+                        Use My Location
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map and Clinics List -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Map Container -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-600 to-green-600 text-white p-4">
+                    <h2 class="text-xl font-bold">
+                        <i class="fas fa-map mr-2"></i>
+                        Clinic Locations
+                    </h2>
+                </div>
+                <div id="map" class="h-96 lg:h-full min-h-[500px]"></div>
+            </div>
+
+            <!-- Clinics List -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-green-600 to-blue-600 text-white p-4">
+                    <h2 class="text-xl font-bold">
+                        <i class="fas fa-list mr-2"></i>
+                        Nearby Clinics
+                    </h2>
+                </div>
+                <div id="clinicsList" class="p-4 max-h-[500px] lg:max-h-full overflow-y-auto">
+                    <!-- Clinics will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Offline Notice -->
+        <section id="offlineNotice" class="hidden mt-8">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg">
+                <div class="flex items-start">
+                    <i class="fas fa-wifi-slash text-yellow-600 text-xl mr-4 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="text-lg font-bold text-yellow-800 mb-2">Offline Mode</h3>
+                        <p class="text-yellow-700">Map is currently unavailable. Showing cached clinic list below.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Clinic Details Modal -->
+    <div id="clinicModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modalClinicName" class="text-2xl font-bold text-gray-800"></h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                <div id="modalClinicContent" class="space-y-4">
+                    <!-- Modal content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <i class="fas fa-heartbeat text-blue-400 text-2xl mr-2"></i>
+                <span class="text-xl font-semibold">Clinic-in-a-Phone</span>
+            </div>
+            <p class="text-gray-400 mb-2">Serving the God of All Flesh through Technology</p>
+            <p class="text-gray-500 text-sm">© 2024 Clinic-in-a-Phone. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/clinics.js') }}"></script>
+</body>
+</html>

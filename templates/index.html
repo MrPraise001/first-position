@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic-in-a-Phone - Your Health Assistant</title>
+    <meta name="description" content="Smart health assistant for symptom checking, fitness tracking, and finding nearby clinics">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Clinic-in-a-Phone">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Clinic-in-a-Phone">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/icon-192x192.png') }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/icon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/icon-16x16.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icon-192x192.png') }}">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heartbeat text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">Clinic-in-a-Phone</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="nav-link text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="/symptom" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-stethoscope mr-1"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-dumbbell mr-1"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-map-marker-alt mr-1"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-hands-helping mr-1"></i> Mission
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/" class="mobile-nav-link text-blue-600 font-semibold py-2">
+                        <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                    <a href="/symptom" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-stethoscope mr-2"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-dumbbell mr-2"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-hands-helping mr-2"></i> Mission
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                Your Personal Health Assistant
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Serving the God of All Flesh through Technology
+            </p>
+            
+            <!-- Emergency Help Button -->
+            <button id="emergencyBtn" class="bg-red-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-red-700 transform hover:scale-105 transition-all shadow-lg pulse-animation">
+                <i class="fas fa-ambulance mr-2"></i> Emergency Help
+            </button>
+        </section>
+
+        <!-- Daily Doctor Quote -->
+        <section class="mb-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+                <i class="fas fa-quote-left text-blue-600 text-3xl mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Daily Doctor Quote</h2>
+                <p id="dailyQuote" class="text-xl text-gray-600 italic mb-4">Loading quote...</p>
+                <div class="flex justify-center items-center text-sm text-gray-500">
+                    <i class="fas fa-calendar-day mr-2"></i>
+                    <span id="currentDate"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise of the Day -->
+        <section class="mb-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+                    <i class="fas fa-running text-green-600 mr-2"></i> Exercise of the Day
+                </h2>
+                <div id="exercisesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Exercise cards will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Health Score -->
+        <section class="mb-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+                    <i class="fas fa-heart text-red-600 mr-2"></i> Daily Health Score
+                </h2>
+                
+                <div class="max-w-2xl mx-auto">
+                    <div id="healthQuestions" class="space-y-4 mb-8">
+                        <label class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <span class="flex items-center">
+                                <i class="fas fa-running text-blue-600 mr-3"></i>
+                                Did you exercise today?
+                            </span>
+                            <input type="checkbox" class="health-checkbox w-5 h-5 text-blue-600" data-question="exercise">
+                        </label>
+                        
+                        <label class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <span class="flex items-center">
+                                <i class="fas fa-tint text-blue-400 mr-3"></i>
+                                Did you drink enough water?
+                            </span>
+                            <input type="checkbox" class="health-checkbox w-5 h-5 text-blue-600" data-question="water">
+                        </label>
+                        
+                        <label class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <span class="flex items-center">
+                                <i class="fas fa-bed text-purple-600 mr-3"></i>
+                                Did you sleep 7-8 hours?
+                            </span>
+                            <input type="checkbox" class="health-checkbox w-5 h-5 text-blue-600" data-question="sleep">
+                        </label>
+                        
+                        <label class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <span class="flex items-center">
+                                <i class="fas fa-apple-alt text-green-600 mr-3"></i>
+                                Did you eat fruits/vegetables?
+                            </span>
+                            <input type="checkbox" class="health-checkbox w-5 h-5 text-blue-600" data-question="fruits">
+                        </label>
+                        
+                        <label class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <span class="flex items-center">
+                                <i class="fas fa-candy-cane text-pink-600 mr-3"></i>
+                                Did you avoid excessive sugar?
+                            </span>
+                            <input type="checkbox" class="health-checkbox w-5 h-5 text-blue-600" data-question="sugar">
+                        </label>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button id="calculateHealthScore" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transform hover:scale-105 transition-all">
+                            Calculate Health Score
+                        </button>
+                    </div>
+                    
+                    <div id="healthScoreResult" class="hidden mt-8 text-center">
+                        <div class="bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-xl p-6">
+                            <h3 class="text-3xl font-bold mb-2">Your Health Score</h3>
+                            <div class="text-5xl font-bold mb-4">
+                                <span id="scoreValue">0</span> / 100
+                            </div>
+                            <div id="scoreChart" class="max-w-xs mx-auto mb-4"></div>
+                            <p id="scoreAdvice" class="text-lg"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BMI Calculator -->
+        <section class="mb-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+                    <i class="fas fa-calculator text-purple-600 mr-2"></i> BMI Calculator
+                </h2>
+                
+                <div class="max-w-md mx-auto">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Height (cm)</label>
+                            <input type="number" id="height" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="170">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Weight (kg)</label>
+                            <input type="number" id="weight" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="70">
+                        </div>
+                        
+                        <button id="calculateBMI" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transform hover:scale-105 transition-all">
+                            Calculate BMI
+                        </button>
+                    </div>
+                    
+                    <div id="bmiResult" class="hidden mt-6 text-center">
+                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl p-6">
+                            <h3 class="text-2xl font-bold mb-2">Your BMI</h3>
+                            <div class="text-4xl font-bold mb-2">
+                                <span id="bmiValue">0</span>
+                            </div>
+                            <div class="text-xl mb-2">
+                                Category: <span id="bmiCategory" class="font-bold"></span>
+                            </div>
+                            <p id="bmiAdvice" class="text-sm"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <i class="fas fa-heartbeat text-blue-400 text-2xl mr-2"></i>
+                <span class="text-xl font-semibold">Clinic-in-a-Phone</span>
+            </div>
+            <p class="text-gray-400 mb-2">Serving the God of All Flesh through Technology</p>
+            <p class="text-gray-500 text-sm">© 2024 Clinic-in-a-Phone. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Exercise Modal -->
+    <div id="exerciseModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modalExerciseName" class="text-2xl font-bold text-gray-800"></h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                <div id="modalExerciseContent" class="space-y-4">
+                    <!-- Modal content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div id="emergencyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold text-red-600">
+                        <i class="fas fa-ambulance mr-2"></i> Emergency Help
+                    </h3>
+                    <button id="closeEmergencyModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-red-50 border-l-4 border-red-600 p-4">
+                        <p class="text-red-800 font-semibold">If you're experiencing a medical emergency:</p>
+                        <ul class="list-disc list-inside text-red-700 mt-2">
+                            <li>Call emergency services immediately: 911</li>
+                            <li>Go to the nearest emergency room</li>
+                            <li>Don't wait if symptoms are severe</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 border-l-4 border-blue-600 p-4">
+                        <p class="text-blue-800 font-semibold">Nearest Clinics:</p>
+                        <div id="emergencyClinics" class="mt-2 space-y-2">
+                            <!-- Emergency clinics will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

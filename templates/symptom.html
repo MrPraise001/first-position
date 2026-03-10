@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Checker - Clinic-in-a-Phone</title>
+    <meta name="description" content="AI-powered symptom checker for preliminary health assessment">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Clinic-in-a-Phone">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heartbeat text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">Clinic-in-a-Phone</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="/symptom" class="nav-link text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                        <i class="fas fa-stethoscope mr-1"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-dumbbell mr-1"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-map-marker-alt mr-1"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-hands-helping mr-1"></i> Mission
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                    <a href="/symptom" class="mobile-nav-link text-blue-600 font-semibold py-2">
+                        <i class="fas fa-stethoscope mr-2"></i> Symptom Checker
+                    </a>
+                    <a href="/fitness" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-dumbbell mr-2"></i> Fitness
+                    </a>
+                    <a href="/clinics" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Clinics Map
+                    </a>
+                    <a href="/mission" class="mobile-nav-link text-gray-600 py-2">
+                        <i class="fas fa-hands-helping mr-2"></i> Mission
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <section class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-stethoscope text-blue-600 mr-3"></i>
+                Symptom Checker
+            </h1>
+            <p class="text-xl text-gray-600 mb-4">
+                Select your symptoms to get preliminary health assessment
+            </p>
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 max-w-2xl mx-auto">
+                <p class="text-yellow-800 text-sm">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong>Disclaimer:</strong> This tool is not a medical diagnosis. Please consult a healthcare professional for proper medical advice.
+                </p>
+            </div>
+        </section>
+
+        <!-- Symptom Checker Interface -->
+        <section class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <!-- Chat Header -->
+                <div class="bg-gradient-to-r from-blue-600 to-green-600 text-white p-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user-md text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold">Health Assistant</h2>
+                            <p class="text-blue-100">Select your symptoms below</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Area -->
+                <div class="p-6">
+                    <!-- Welcome Message -->
+                    <div class="mb-6">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-robot text-blue-600 text-sm"></i>
+                            </div>
+                            <div class="bg-gray-100 rounded-lg p-4 max-w-md">
+                                <p class="text-gray-800">Hello! I'm here to help you assess your symptoms. Please select all symptoms you're experiencing from the list below.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Symptoms Selection -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-clipboard-list text-blue-600 mr-2"></i>
+                            Select Your Symptoms
+                        </h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="fever">
+                                <span class="symptom-card">
+                                    <i class="fas fa-thermometer-half text-red-500"></i>
+                                    <span>Fever</span>
+                                </span>
+                            </label>
+                            
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="headache">
+                                <span class="symptom-card">
+                                    <i class="fas fa-brain text-purple-500"></i>
+                                    <span>Headache</span>
+                                </span>
+                            </label>
+                            
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="cough">
+                                <span class="symptom-card">
+                                    <i class="fas fa-lungs text-blue-500"></i>
+                                    <span>Cough</span>
+                                </span>
+                            </label>
+                            
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="chest pain">
+                                <span class="symptom-card">
+                                    <i class="fas fa-heart text-red-600"></i>
+                                    <span>Chest Pain</span>
+                                </span>
+                            </label>
+                            
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="vomiting">
+                                <span class="symptom-card">
+                                    <i class="fas fa-nausea text-green-500"></i>
+                                    <span>Vomiting</span>
+                                </span>
+                            </label>
+                            
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="diarrhea">
+                                <span class="symptom-card">
+                                    <i class="fas fa-toilet text-brown-500"></i>
+                                    <span>Diarrhea</span>
+                                </span>
+                            </label>
+                            
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="fatigue">
+                                <span class="symptom-card">
+                                    <i class="fas fa-battery-quarter text-gray-500"></i>
+                                    <span>Fatigue</span>
+                                </span>
+                            </label>
+                            
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="sore throat">
+                                <span class="symptom-card">
+                                    <i class="fas fa-comment-medical text-pink-500"></i>
+                                    <span>Sore Throat</span>
+                                </span>
+                            </label>
+                            
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="dizziness">
+                                <span class="symptom-card">
+                                    <i class="fas fa-dizzy text-yellow-500"></i>
+                                    <span>Dizziness</span>
+                                </span>
+                            </label>
+                            
+                            <label class="symptom-label">
+                                <input type="checkbox" class="symptom-checkbox" value="body pain">
+                                <span class="symptom-card">
+                                    <i class="fas fa-aching text-orange-500"></i>
+                                    <span>Body Pain</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Selected Symptoms Display -->
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-semibold text-gray-700">Selected Symptoms:</h4>
+                            <button id="clearSymptoms" class="text-sm text-red-600 hover:text-red-800">
+                                <i class="fas fa-times-circle mr-1"></i> Clear All
+                            </button>
+                        </div>
+                        <div id="selectedSymptoms" class="flex flex-wrap gap-2 min-h-[40px] p-3 bg-gray-50 rounded-lg">
+                            <span class="text-gray-500 text-sm">No symptoms selected</span>
+                        </div>
+                    </div>
+
+                    <!-- Analyze Button -->
+                    <div class="text-center mb-6">
+                        <button id="analyzeBtn" class="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-green-700 transform hover:scale-105 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <i class="fas fa-search-medical mr-2"></i>
+                            Analyze Symptoms
+                        </button>
+                    </div>
+
+                    <!-- Results Area -->
+                    <div id="resultsArea" class="hidden">
+                        <div class="border-t pt-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                                <i class="fas fa-clipboard-check text-green-600 mr-2"></i>
+                                Analysis Results
+                            </h3>
+                            <div id="analysisResults" class="space-y-4">
+                                <!-- Results will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Notice -->
+        <section class="mt-12 max-w-4xl mx-auto">
+            <div class="bg-red-50 border-l-4 border-red-600 p-6 rounded-lg">
+                <div class="flex items-start">
+                    <i class="fas fa-exclamation-triangle text-red-600 text-xl mr-4 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="text-lg font-bold text-red-800 mb-2">Seek Immediate Medical Attention If:</h3>
+                        <ul class="list-disc list-inside text-red-700 space-y-1">
+                            <li>You experience severe chest pain or difficulty breathing</li>
+                            <li>You have sudden, severe headache</li>
+                            <li>You experience confusion or loss of consciousness</li>
+                            <li>You have severe abdominal pain</li>
+                            <li>Your symptoms are rapidly worsening</li>
+                        </ul>
+                        <p class="text-red-800 font-semibold mt-3">
+                            <i class="fas fa-phone mr-2"></i>
+                            Emergency: 911
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <i class="fas fa-heartbeat text-blue-400 text-2xl mr-2"></i>
+                <span class="text-xl font-semibold">Clinic-in-a-Phone</span>
+            </div>
+            <p class="text-gray-400 mb-2">Serving the God of All Flesh through Technology</p>
+            <p class="text-gray-500 text-sm">© 2024 Clinic-in-a-Phone. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/symptom.js') }}"></script>
+</body>
+</html>
