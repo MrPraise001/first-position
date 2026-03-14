@@ -15,9 +15,9 @@ A progressive web application (PWA) for health management, symptom checking, fit
 
 ## 🙏 Mission
 
-"Serving the God of All Flesh through Technology"
+"Lord of All through Technology"
 
-This application was built to care for people's health using technology, reflecting our commitment to serving humanity with compassion and excellence. The project is inspired by Numbers 16:22: "O God, the God of the spirits of all flesh."
+This application was built to care for people's health using technology, reflecting our commitment to serving humanity under the Lordship of the Almighty. The project is inspired by Jeremiah 32:27: "Behold, I am the Lord, the God of all flesh: is there any thing too hard for me?".
 
 ## 🛠 Tech Stack
 
@@ -205,7 +205,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- **Numbers 16:22** - Biblical foundation for our mission
+- **Jeremiah 32:27** - Biblical foundation for our mission
 - **OpenStreetMap** - Map tiles for clinic locations
 - **Font Awesome** - Icon library
 - **Tailwind CSS** - CSS framework
@@ -219,4 +219,4 @@ For questions, suggestions, or support:
 
 ---
 
-*"Serving the God of All Flesh through Technology"* 🙏💙
+*"Lord of All through Technology"* 🙏💙

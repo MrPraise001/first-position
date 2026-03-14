@@ -168,9 +168,8 @@ function getOfflineResponse(url) {
     if (url.includes('/api/symptom-check')) {
         return new Response(JSON.stringify({
             condition: "General Discomfort",
-            action: "Rest, stay hydrated, consult doctor if symptoms persist",
-            severity: "low",
-            disclaimer: "This tool is not a medical diagnosis. Please consult a healthcare professional."
+            action: "Rest, stay hydrated, monitor symptoms",
+            severity: "low"
         }), {
             status: 200,
             statusText: 'OK',

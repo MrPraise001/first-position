@@ -141,6 +141,12 @@ style.textContent = `
         border-left: 4px solid #EF4444;
         background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
     }
+    
+    .severity-critical {
+        border-left: 4px solid #DC2626;
+        background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+        box-shadow: 0 0 20px rgba(220, 38, 38, 0.2);
+    }
 `;
 document.head.appendChild(style);
 
@@ -235,6 +241,9 @@ function displayResults(result, symptoms) {
     const severityClass = `severity-${result.severity}`;
     const severityIcon = getSeverityIcon(result.severity);
     const severityText = result.severity.charAt(0).toUpperCase() + result.severity.slice(1);
+    const confidenceLevel = result.confidence || 'moderate';
+    const confidenceIcon = getConfidenceIcon(confidenceLevel);
+    const confidenceText = confidenceLevel.charAt(0).toUpperCase() + confidenceLevel.replace('_', ' ').slice(1);
     
     analysisResults.innerHTML = `
         <div class="result-card ${severityClass} rounded-lg p-6">
@@ -245,6 +254,12 @@ function displayResults(result, symptoms) {
                 <div class="flex-1">
                     <h4 class="text-xl font-bold text-gray-800 mb-2">Possible Condition</h4>
                     <p class="text-lg text-gray-700 font-semibold">${result.condition}</p>
+                    <div class="mt-2">
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getConfidenceBadgeClass(confidenceLevel)}">
+                            ${confidenceIcon}
+                            <span class="ml-1">Confidence: ${confidenceText}</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             
@@ -269,16 +284,23 @@ function displayResults(result, symptoms) {
                 </div>
             </div>
             
-            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
-                <p class="text-blue-800 text-sm">
-                    <i class="fas fa-info-circle mr-2"></i>
-                    <strong>Important:</strong> ${result.disclaimer}
-                </p>
+            <div class="mb-4">
+                <h5 class="font-semibold text-gray-800 mb-2">
+                    <i class="fas fa-list-ul text-purple-600 mr-2"></i>
+                    Symptoms Analyzed
+                </h5>
+                <div class="flex flex-wrap gap-2">
+                    ${result.symptoms_analyzed.map(symptom => 
+                        `<span class="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+                            ${symptom}
+                        </span>`
+                    ).join('')}
+                </div>
             </div>
         </div>
         
-        <div class="mt-6 text-center">
-            <button onclick="startNewAnalysis()" class="bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors">
+        <div class="mt-4 text-center">
+            <button onclick="resetAnalysis()" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors">
                 <i class="fas fa-redo mr-2"></i>
                 Start New Analysis
             </button>
@@ -286,7 +308,39 @@ function displayResults(result, symptoms) {
     `;
     
     resultsArea.classList.remove('hidden');
-    resultsArea.scrollIntoView({ behavior: 'smooth' });
+    resultsArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Get confidence icon
+function getConfidenceIcon(confidence) {
+    switch (confidence) {
+        case 'high':
+            return '<i class="fas fa-star text-yellow-500 text-xs"></i>';
+        case 'moderate':
+            return '<i class="fas fa-star-half-alt text-yellow-500 text-xs"></i>';
+        case 'low':
+            return '<i class="far fa-star text-yellow-500 text-xs"></i>';
+        case 'very_low':
+            return '<i class="far fa-star text-gray-400 text-xs"></i>';
+        default:
+            return '<i class="fas fa-question text-gray-400 text-xs"></i>';
+    }
+}
+
+// Get confidence badge class
+function getConfidenceBadgeClass(confidence) {
+    switch (confidence) {
+        case 'high':
+            return 'bg-green-100 text-green-800';
+        case 'moderate':
+            return 'bg-blue-100 text-blue-800';
+        case 'low':
+            return 'bg-yellow-100 text-yellow-800';
+        case 'very_low':
+            return 'bg-gray-100 text-gray-600';
+        default:
+            return 'bg-gray-100 text-gray-800';
+    }
 }
 
 // Get severity icon
@@ -298,6 +352,8 @@ function getSeverityIcon(severity) {
             return '<i class="fas fa-exclamation-circle text-yellow-600 text-2xl"></i>';
         case 'high':
             return '<i class="fas fa-times-circle text-red-600 text-2xl"></i>';
+        case 'critical':
+            return '<i class="fas fa-exclamation-triangle text-red-700 text-2xl animate-pulse"></i>';
         default:
             return '<i class="fas fa-info-circle text-blue-600 text-2xl"></i>';
     }
@@ -312,6 +368,8 @@ function getSeverityBadgeClass(severity) {
             return 'bg-yellow-100 text-yellow-800';
         case 'high':
             return 'bg-red-100 text-red-800';
+        case 'critical':
+            return 'bg-red-200 text-red-900 font-bold';
         default:
             return 'bg-gray-100 text-gray-800';
     }
@@ -338,10 +396,15 @@ function showError(message) {
 }
 
 // Start new analysis
-function startNewAnalysis() {
+function resetAnalysis() {
     symptomCheckboxes.forEach(checkbox => checkbox.checked = false);
     updateSelectedSymptoms();
     document.getElementById('resultsArea').classList.add('hidden');
+}
+
+// Start new analysis
+function startNewAnalysis() {
+    resetAnalysis();
 }
 
 // Initialize

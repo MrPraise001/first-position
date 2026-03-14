@@ -6,45 +6,10 @@ document.getElementById('mobileMenuBtn').addEventListener('click', function() {
     mobileMenu.classList.toggle('hidden');
 });
 
-// Animated counter for impact statistics
-function animateCounter(elementId, targetValue, duration = 2000) {
-    const element = document.getElementById(elementId);
-    const startTime = Date.now();
-    const startValue = 0;
-    
-    function updateCounter() {
-        const currentTime = Date.now();
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // Easing function for smooth animation
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOutQuart);
-        
-        element.textContent = currentValue.toLocaleString();
-        
-        if (progress < 1) {
-            requestAnimationFrame(updateCounter);
-        }
-    }
-    
-    // Start animation when element is in viewport
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                updateCounter();
-                observer.unobserve(entry.target);
-            }
-        });
-    });
-    
-    observer.observe(element);
-}
-
 // Share mission functionality
 function shareMission() {
     const shareData = {
-        title: 'Clinic-in-a-Phone - Serving the God of All Flesh through Technology',
+        title: 'Clinic-in-a-Phone - Lord of All through Technology',
         text: 'Join our mission to make healthcare accessible to everyone through innovative technology.',
         url: window.location.href
     };
@@ -151,34 +116,12 @@ function learnMore() {
 }
 
 // Initialize animations and interactions
-document.addEventListener('DOMContentLoaded', function() {
-    // Start counter animations
-    animateCounter('usersCount', 50000);
-    animateCounter('clinicsCount', 150);
-    animateCounter('checksCount', 25000);
-    animateCounter('livesCount', 100000);
-    
-    // Add smooth scroll behavior
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-    
-    // Add parallax effect to hero section
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.bg-gradient-to-r.from-purple-600.to-blue-600');
-        if (hero && scrolled < 500) {
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-        }
-    });
-    
-    // Add fade-in animation to sections
+function mobileMenuToggle() {
+    // Mobile menu toggle is already handled above
+}
+
+function observeSections() {
+    // Add fade-in animations to sections
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -196,6 +139,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // Observe all sections
     document.querySelectorAll('section').forEach(section => {
         fadeObserver.observe(section);
+    });
+}
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    mobileMenuToggle();
+    
+    // Remove animated counters for impact section
+    // No fake statistics to display
+    
+    // Add smooth scrolling to navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+    
+    // Add fade-in animations to sections
+    observeSections();
+    
+    // Add parallax effect to hero section
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.bg-gradient-to-r.from-purple-600.to-blue-600');
+        if (hero && scrolled < 500) {
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
     });
 });
 
